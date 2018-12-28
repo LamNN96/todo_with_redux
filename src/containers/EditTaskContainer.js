@@ -1,4 +1,4 @@
-import TodoItem from "../components/TodoItem";
+import EditTask from "../components/EditTask";
 import { connect } from "react-redux";
 const mapStateToProps = state => {
   return {
@@ -8,9 +8,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClickDone: taskID => {
-      console.log(taskID);
-      dispatch(toggleTask(taskID));
+    onClickEdit: data => {
+      dispatch(editTask(data));
     }
   };
 };
@@ -18,4 +17,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TodoItem);
+)(EditTask);

@@ -1,43 +1,48 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { View, Text, TouchableWithoutFeedback, CheckBox } from "react-native";
 
-class TodoItem extends Component {
+export default class TodoItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
   _onItemClick() {
-    this.props.navigation.navigate('EditTask', {
+    this.props.navigation.navigate("EditTask", {
       data: this.props.item
-    })
+    });
+  }
+
+  _onCompleteTask() {
+    this.props.onClickDone(this.props.item.id);
   }
   render() {
+    console.log("TodoItem");
     return (
-      <TouchableWithoutFeedback onPress={() => { this._onItemClick() }}>
-        <View style={{
-          borderBottomColor: 'gray',
-          borderBottomWidth: 1,
-          marginBottom: 2,
-          flexDirection: 'row'
-        }}>
-          <Text style={{ fontSize: 20, flex: 9 }}> {this.props.item.title}</Text>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          this._onItemClick();
+        }}
+      >
+        <View
+          style={{
+            borderBottomColor: "gray",
+            borderBottomWidth: 1,
+            marginBottom: 2,
+            flexDirection: "row"
+          }}
+        >
+          <Text style={{ fontSize: 20, flex: 9 }}>
+            {" "}
+            {this.props.item.title}
+          </Text>
+          <CheckBox
+            value={this.props.item.isDone}
+            onValueChange={() => {
+              this._onCompleteTask();
+            }}
+          />
         </View>
       </TouchableWithoutFeedback>
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    tasks: state.tasks.tasks
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoItem)
