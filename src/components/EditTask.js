@@ -7,31 +7,22 @@ class EditTask extends Component {
   constructor(props) {
     super(props);
     const data = this.props.navigation.getParam('data', {})
-    console.log('data', data)
     this.state = {
       item: {
         id: data.id,
         title: data.title,
-        description: data.description
+        description: data.description,
+        isDone: data.isDone
       }
     };
-    console.log(this.state.item)
   }
 
   _onSavePress = () => {
-    console.log('data on save', this.state.item)
     this.props.onClickEdit(this.state.item);
     this.props.navigation.goBack();
   }
-  componentDidMount() {
-    // const data = this.props.navigation.getParam('data', {})
-    // console.log('data will mount', data)
-    // this.setState({
-    //   item: data
-    // })
-    // console.log('after set state will mount', this.state.item)
-  }
   render() {
+    console.log('EditTask')
     return (
       <View>
         <Text> Title </Text>
@@ -41,9 +32,8 @@ class EditTask extends Component {
             this.setState((preState) => {
               return {
                 item: {
-                  id: preState.item.id,
-                  title: text,
-                  description: preState.item.description
+                  ...item,
+                  title: text
                 }
               }
             })
@@ -56,14 +46,14 @@ class EditTask extends Component {
             this.setState((preState) => {
               return {
                 item: {
-                  id: preState.item.id,
+                  ...item,
                   title: preState.item.title,
-                  description: text
                 }
               }
             })
           }}
         ></TextInput>
+        <Text>{this.state.item.isDone ? 'Completed' : 'Active'}</Text>
         <Button
           title='Save'
           onPress={() => { this._onSavePress() }}
@@ -81,7 +71,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log('dispatch')
   return {
     onClickEdit: (data) => {
       dispatch(editTask(data))

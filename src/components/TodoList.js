@@ -31,6 +31,7 @@ class TodoList extends Component {
     }
 
     render() {
+        console.log('TodoList')
         let data = this.props.tasks;
         return (
             <View style={{ flex: 1 }}>
@@ -41,7 +42,6 @@ class TodoList extends Component {
                             data={data}
                             renderItem={
                                 ({ item, index }) => {
-                                    console.log('item', item)
                                     return (
                                         <TodoItem
                                             item={item}

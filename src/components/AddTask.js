@@ -19,6 +19,7 @@ class AddTask extends Component {
   }
 
   render() {
+    console.log('AddTask')
     return (
       <View
       >

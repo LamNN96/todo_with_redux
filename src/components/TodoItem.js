@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, CheckBox } from 'react-native';
 import { connect } from 'react-redux';
+import { toggleTask } from '../actions/task';
 
 class TodoItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
     };
   }
   _onItemClick() {
@@ -13,7 +15,12 @@ class TodoItem extends Component {
       data: this.props.item
     })
   }
+
+  _onCompleteTask() {
+    this.props.onClickDone(this.props.item.id)
+  }
   render() {
+    console.log('TodoItem')
     return (
       <TouchableWithoutFeedback onPress={() => { this._onItemClick() }}>
         <View style={{
@@ -23,6 +30,10 @@ class TodoItem extends Component {
           flexDirection: 'row'
         }}>
           <Text style={{ fontSize: 20, flex: 9 }}> {this.props.item.title}</Text>
+          <CheckBox
+            value={this.props.item.isDone}
+            onValueChange={() => { this._onCompleteTask() }}
+          />
         </View>
       </TouchableWithoutFeedback>
     );
@@ -36,7 +47,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    onClickDone: (taskID) => {
+      console.log(taskID)
+      dispatch(toggleTask(taskID));
+    }
   }
 }
 
