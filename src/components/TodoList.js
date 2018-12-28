@@ -1,30 +1,26 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity
-} from "react-native";
-
-import TodoItem from "./TodoItem";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import styles from "../themes/Style";
+import { language } from "../utils/Constant";
+import TodoItemContainer from "../containers/TodoItemContainer";
 
 export default class TodoList extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "Todo List",
+      title: language.title_todolist,
       headerRight: (
         <TouchableOpacity
-          style={{ marginRight: 10 }}
+          style={styles.addButtonOpacity}
           onPress={() => {
             navigation.navigate("AddTask");
           }}
         >
-          <Text style={{ fontSize: 20 }}>Add</Text>
+          <Text style={styles.textAddButton}>{language.text_add_label}</Text>
         </TouchableOpacity>
       )
     };
   };
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -37,19 +33,18 @@ export default class TodoList extends Component {
   }
 
   render() {
-    console.log("TodoList", this.props.tasks);
     let data = this.props.tasks;
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.listContainer}>
           {data.length === 0 ? (
-            <Text style={styles.textEmpty}>Empty!</Text>
+            <Text style={styles.textEmpty}>{language.text_empty}</Text>
           ) : (
             <FlatList
               data={data}
               renderItem={({ item, index }) => {
                 return (
-                  <TodoItem
+                  <TodoItemContainer
                     item={item}
                     index={index}
                     handleData={this.dataFromItem}
@@ -65,17 +60,3 @@ export default class TodoList extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  textEmpty: {},
-  buttonAddContainer: {
-    height: 25
-  },
-  listContainer: {
-    flex: 8,
-    marginRight: 10,
-    marginLeft: 10,
-    marginTop: 10
-  },
-  inputContainer: {}
-});

@@ -2,7 +2,6 @@ import TodoList from '../components/TodoList';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
         tasks: state.tasks.tasks
     }

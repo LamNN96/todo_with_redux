@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { View, Text, TextInput } from "react-native";
 import Button from "react-native-button";
+import styles from "../themes/Style";
+import { language } from "../utils/Constant";
 
 export default class AddTask extends Component {
   constructor(props) {
@@ -17,26 +19,13 @@ export default class AddTask extends Component {
     console.log(this.props);
     return (
       <View>
-        <Text
-          style={{
-            marginTop: 30,
-            fontSize: 25,
-            textAlign: "center"
-          }}
-        >
-          Add Task
-        </Text>
+        <Text style={styles.addLabel}>Add Task</Text>
         <TextInput
           ref={"inputTitle"}
           autoFocus={true}
           onSubmitEditing={() => this.refs.inputDescription.focus()}
-          style={{
-            marginStart: 10,
-            marginEnd: 10,
-            borderBottomColor: "gray",
-            borderBottomWidth: 1
-          }}
-          placeholder="Enter title..."
+          style={styles.inputText}
+          placeholder={language.place_holder_title}
           value={this.state.newTitle}
           onChangeText={text => {
             this.setState(previousState => {
@@ -52,13 +41,8 @@ export default class AddTask extends Component {
 
         <TextInput
           ref={"inputDescription"}
-          style={{
-            marginStart: 10,
-            marginEnd: 10,
-            borderBottomColor: "gray",
-            borderBottomWidth: 1
-          }}
-          placeholder="Enter description..."
+          style={styles.inputText}
+          placeholder={language.place_holder_desc}
           value={this.state.newDescription}
           onChangeText={text => {
             this.setState(previousState => {
@@ -73,22 +57,14 @@ export default class AddTask extends Component {
         />
 
         <Button
-          style={{ fontSize: 16, color: "white" }}
-          containerStyle={{
-            padding: 8,
-            marginTop: 30,
-            marginStart: 70,
-            marginBottom: 20,
-            marginEnd: 70,
-            borderRadius: 5,
-            backgroundColor: "mediumseagreen"
-          }}
+          style={styles.addButton}
+          containerStyle={styles.addButtonContainer}
           onPress={() => {
             this.props.onClickAdd(this.state.item);
             this.props.navigation.goBack();
           }}
         >
-          Save
+          {language.text_save_label}
         </Button>
       </View>
     );

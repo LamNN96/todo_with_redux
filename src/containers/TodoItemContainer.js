@@ -1,5 +1,6 @@
 import TodoItem from "../components/TodoItem";
 import { connect } from "react-redux";
+import { toggleTask } from "../actions/task";
 const mapStateToProps = state => {
   return {
     tasks: state.tasks.tasks
@@ -9,7 +10,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onClickDone: taskID => {
-      console.log(taskID);
       dispatch(toggleTask(taskID));
     }
   };

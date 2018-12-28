@@ -18,8 +18,6 @@ const middleWare = createReactNavigationReduxMiddleware(
   state => state.nav
 );
 
-const configureStore = () => {
-  return createStore(rootReducer, applyMiddleware(middleWare));
-};
+const store = createStore(rootReducer, applyMiddleware(middleWare));
 
-export default configureStore;
+export default store;

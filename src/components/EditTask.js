@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import React, { Component } from "react";
+import { View, Text, TextInput, Button } from "react-native";
+import styles from "../themes/Style";
+import { language, param } from "../utils/Constant";
 
 export default class EditTask extends Component {
   constructor(props) {
     super(props);
-    const data = this.props.navigation.getParam('data', {})
+    const data = this.props.navigation.getParam(param.data, {});
     this.state = {
       item: {
         id: data.id,
@@ -18,54 +20,48 @@ export default class EditTask extends Component {
   _onSavePress = () => {
     this.props.onClickEdit(this.state.item);
     this.props.navigation.goBack();
-  }
+  };
+
   render() {
-    console.log('EditTask')
     return (
       <View>
-        <View style={styles.container}>
-
-        </View>
-        <Text> Title </Text>
+        <View style={styles.editContainer} />
+        <Text> {language.text_title_label} </Text>
         <TextInput
           value={this.state.item.title}
-          onChangeText={(text) => {
-            this.setState((preState) => {
-              return {
-                item: {
-                  ...item,
-                  title: text
-                }
+          onChangeText={text => {
+            this.setState({
+              item: {
+                ...this.state.item,
+                title: text
               }
-            })
+            });
           }}
-        ></TextInput>
-        <Text> Description </Text>
+        />
+        <Text> {language.text_desc_label} </Text>
         <TextInput
           value={this.state.item.description}
-          onChangeText={(text) => {
-            this.setState((preState) => {
-              return {
-                item: {
-                  ...item,
-                  title: preState.item.title,
-                }
+          onChangeText={text => {
+            this.setState({
+              item: {
+                ...this.state.item,
+                description: text
               }
-            })
+            });
           }}
-        ></TextInput>
-        <Text>{this.state.item.isDone ? 'Completed' : 'Active'}</Text>
+        />
+        <Text>
+          {this.state.item.isDone
+            ? language.text_completed
+            : language.text_active}
+        </Text>
         <Button
-          title='Save'
-          onPress={() => { this._onSavePress() }}
+          title={language.text_save_button_title}
+          onPress={() => {
+            this._onSavePress();
+          }}
         />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-  }
-})
