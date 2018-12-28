@@ -9,7 +9,7 @@ const initialState = {
     }]
 }
 
-const taskReducer = (state = initialState, action) => {
+const TaskReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TASK:
             let newTasks = [...state.tasks, {
@@ -45,4 +45,4 @@ const taskReducer = (state = initialState, action) => {
     }
 }
 
-export default taskReducer;
+export default TaskReducer;

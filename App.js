@@ -1,66 +1,61 @@
-import React, { Component } from 'react';
-import {
-  createAppContainer,
-  createStackNavigator
-} from 'react-navigation';
-import { Provider, connect } from 'react-redux';
-import {
-  createStore,
-  applyMiddleware,
-  combineReducers,
-} from 'redux';
+import React, { Component } from "react";
+import { createAppContainer, createStackNavigator } from "react-navigation";
+import { Provider, connect } from "react-redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import {
   reduxifyNavigator,
   createReactNavigationReduxMiddleware,
   createNavigationReducer
-} from 'react-navigation-redux-helpers';
-import TodoList from './src/components/TodoList';
-import TaskDetail from './src/components/TaskDetail';
-import EditTask from './src/components/EditTask';
-import AddTask from './src/components/AddTask';
-import taskReducer from './src/reducers/taskReducer';
+} from "react-navigation-redux-helpers";
+import TaskDetail from "./src/components/TaskDetail";
+import TaskReducer from "./src/reducers/TaskReducer";
+import AddTaskContainer from "./src/containers/AddTaskContainer";
+import TodoListContainer from "./src/containers/TodoListContainer";
+import EditTaskContainer from "./src/containers/EditTaskContainer";
+import configureStore from "./src/store/store";
+import AppWithNavigationState from "./src/navigation/AppWithNavigationState";
+// const AppNavigator = createStackNavigator(
+//   {
+//     Home: {
+//       screen: TodoListContainer
+//     },
+//     Detail: {
+//       screen: TaskDetail
+//     },
+//     EditTask: {
+//       screen: EditTaskContainer
+//     },
+//     AddTask: {
+//       screen: AddTaskContainer
+//     }
+//   },
+//   {
+//     initialRouteName: "Home"
+//   }
+// );
 
+// const navReducer = createNavigationReducer(AppNavigator);
 
-const AppNavigator = createStackNavigator(
-  {
-    Home: {
-      screen: TodoList,
-    },
-    Detail: {
-      screen: TaskDetail
-    },
-    EditTask: {
-      screen: EditTask
-    },
-    AddTask : {
-      screen : AddTask
-    }
-  },
-  {
-    initialRouteName: 'Home',
-  }
-)
+// const rootReducer = combineReducers({
+//   nav: navReducer,
+//   tasks: TaskReducer
+// });
 
-const navReducer = createNavigationReducer(AppNavigator);
+// const middleWare = createReactNavigationReduxMiddleware(
+//   "root",
+//   state => state.nav
+// );
 
-const rootReducer = combineReducers({
-  nav: navReducer,
-  tasks: taskReducer
-})
+// const store = createStore(rootReducer, applyMiddleware(middleWare));
 
-const middleWare = createReactNavigationReduxMiddleware("root", state => state.nav);
+// const AppReduxify = reduxifyNavigator(AppNavigator, "root");
+// const mapStateToProps = state => ({
+//   state: state.nav
+// });
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(middleWare)
-)
+const store = configureStore();
 
-const AppReduxify = reduxifyNavigator(AppNavigator, "root");
-const mapStateToProps = (state) => ({
-  state: state.nav
-});
-
-const AppWithNavigationState = connect(mapStateToProps)(AppReduxify);
+// const AppWithNavigationState = connect(mapStateToProps)(AppReduxify);
 
 export default class App extends Component {
   render() {
@@ -71,6 +66,3 @@ export default class App extends Component {
     );
   }
 }
-
-
-const AppContainer = createAppContainer(AppNavigator)

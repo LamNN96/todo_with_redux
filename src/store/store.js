@@ -1,26 +1,25 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import taskReducer from '../reducers/taskReducer';
-import moduleName from 'module';
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import TaskReducer from "../reducers/TaskReducer";
 import {
-    reduxifyNavigator,
-    createReactNavigationReduxMiddleware,
-    createNavigationReducer,
-} from 'react-navigation-redux-helpers';
+  createReactNavigationReduxMiddleware,
+  createNavigationReducer
+} from "react-navigation-redux-helpers";
+import AppNavigator from "../navigation/AppNavigator";
 
-const navReducer = createNavigationReducer()
+const navReducer = createNavigationReducer(AppNavigator);
 
 const rootReducer = combineReducers({
-    nav: navReducer,
-    tasks: taskReducer
-})
+  nav: navReducer,
+  tasks: TaskReducer
+});
 
-const middleWare = createReactNavigationReduxMiddleware("root", state => state.nav);
+const middleWare = createReactNavigationReduxMiddleware(
+  "root",
+  state => state.nav
+);
 
 const configureStore = () => {
-    return createStore(
-        rootReducer,
-        applyMiddleware(middleWare)
-    );
-}
+  return createStore(rootReducer, applyMiddleware(middleWare));
+};
 
 export default configureStore;

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
-import { connect } from 'react-redux';
-import { editTask } from '../actions/task';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
-class EditTask extends Component {
+export default class EditTask extends Component {
   constructor(props) {
     super(props);
     const data = this.props.navigation.getParam('data', {})
@@ -25,6 +23,9 @@ class EditTask extends Component {
     console.log('EditTask')
     return (
       <View>
+        <View style={styles.container}>
+
+        </View>
         <Text> Title </Text>
         <TextInput
           value={this.state.item.title}
@@ -63,19 +64,8 @@ class EditTask extends Component {
   }
 }
 
-
-const mapStateToProps = state => {
-  return {
-    tasks: state.tasks.tasks
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onClickEdit: (data) => {
-      dispatch(editTask(data))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditTask)
+})
