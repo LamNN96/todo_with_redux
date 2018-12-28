@@ -23,16 +23,17 @@ export default class EditTask extends Component {
   };
 
   render() {
+    const { item} = this.state
     return (
       <View>
         <View style={styles.editContainer} />
         <Text> {language.text_title_label} </Text>
         <TextInput
-          value={this.state.item.title}
+          value={item.title}
           onChangeText={text => {
             this.setState({
               item: {
-                ...this.state.item,
+                ...item,
                 title: text
               }
             });
@@ -40,11 +41,11 @@ export default class EditTask extends Component {
         />
         <Text> {language.text_desc_label} </Text>
         <TextInput
-          value={this.state.item.description}
+          value={item.description}
           onChangeText={text => {
             this.setState({
               item: {
-                ...this.state.item,
+                ...item,
                 description: text
               }
             });

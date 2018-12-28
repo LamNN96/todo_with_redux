@@ -9,7 +9,8 @@ export const language = {
   text_empty : "EMPTY!",
   title_todolist : "Todo List",
   text_add_label : "Add",
-  text_save_label : "Save"
+  text_save_label : "Save",
+  text_add_task_label : "Add Task"
 };
 
 export const param = {

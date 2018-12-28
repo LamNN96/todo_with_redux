@@ -47,7 +47,6 @@ export default class TodoList extends Component {
                   <TodoItemContainer
                     item={item}
                     index={index}
-                    handleData={this.dataFromItem}
                     navigation={this.props.navigation}
                   />
                 );

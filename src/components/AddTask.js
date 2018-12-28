@@ -16,17 +16,17 @@ export default class AddTask extends Component {
   }
 
   render() {
-    console.log(this.props);
+    const { item } = this.state;
     return (
       <View>
-        <Text style={styles.addLabel}>Add Task</Text>
+        <Text style={styles.addLabel}>{language.text_add_task_label}</Text>
         <TextInput
-          ref={"inputTitle"}
+          ref={ref => (this.inputText = ref)}
           autoFocus={true}
-          onSubmitEditing={() => this.refs.inputDescription.focus()}
+          onSubmitEditing={() => this.inputDescription.focus()}
           style={styles.inputText}
           placeholder={language.place_holder_title}
-          value={this.state.newTitle}
+          value={item.title}
           onChangeText={text => {
             this.setState(previousState => {
               return {
@@ -40,10 +40,10 @@ export default class AddTask extends Component {
         />
 
         <TextInput
-          ref={"inputDescription"}
+          ref={ref => (this.inputDescription = ref)}
           style={styles.inputText}
           placeholder={language.place_holder_desc}
-          value={this.state.newDescription}
+          value={item.description}
           onChangeText={text => {
             this.setState(previousState => {
               return {
